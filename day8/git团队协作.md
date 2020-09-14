@@ -1,6 +1,7 @@
 ## 一、环境初始化
 1. github上新建仓库，然后使用git clone 下来
-2. cd 1903C-Bruce下，使用ls -al。看到有.git文件，说明本地仓库已经初始化
+2. 有更新的话：git remote update origin --prune
+3. cd 1903C-Bruce下，使用ls -al。看到有.git文件，说明本地仓库已经初始化
 
 ## 二、git开发原则
 开发分支开发 dev
@@ -60,7 +61,7 @@ git branch -a   查看所有分支
 
    
 
-## 其他
+## 删除
 
 1. 删除已经上传到远程分支的文件
 
@@ -70,60 +71,72 @@ git branch -a   查看所有分支
 
    git push origin dev
 
-   ## 解决合并冲突
+2.要删除服务器远端的分支，则执行如下所示的命令：
 
-   ##### 1.切换分支  (2种方式)
+​	git push origin --delete 分支名
 
-   ​	1.1git checkout dev
+3.如果是要删除本地已经合并了的分支，则执行：
 
-   ​	1.2.test分支不存在的情况下：git  switch -c test
+​	git branch -d 分支名
 
-   ​     		test分支存在的情况下:git  switch  test
+4.删除本地未合并的分支：
 
-   2.在test分支下创建readmw.md文件，并写入内容
+ 	git branch -D 分支名
 
-   3.在test分支上提交readmw.md
+## 解决合并冲突
 
-   ​			git  add  readmw.md
+##### 1.切换分支  (2种方式)
 
-   ​			git commit -m "test分支的readme"
+​	1.1git checkout dev
 
-   4.切换回master分支       git  switch  master
+​	1.2.test分支不存在的情况下：git  switch -c test
 
-   ​	在master分支下创建readmw.md文件，并写入内容
+​     		test分支存在的情况下:git  switch  test
 
-   5.在master分支上提交readmw.md
+2.在test分支下创建readmw.md文件，并写入内容
 
-   ​			git  add  readmw.md
+3.在test分支上提交readmw.md
 
-   ​			git commit -m "master分支的readme"
+​			git  add  readmw.md
 
-   6.这个时候master分支和test分支都有readme.md，这个时候无法进行“快速合并”，必须手动解决冲突后再提交
+​			git commit -m "test分支的readme"
 
-   7.master分支上执行 git merge test 
-   
-   ```
-   $ git merge test
-   CONFLICT (add/add): Merge conflict in readme.md
-   Auto-merging readme.md
+4.切换回master分支       git  switch  master
+
+​	在master分支下创建readmw.md文件，并写入内容
+
+5.在master分支上提交readmw.md
+
+​			git  add  readmw.md
+
+​			git commit -m "master分支的readme"
+
+6.这个时候master分支和test分支都有readme.md，这个时候无法进行“快速合并”，必须手动解决冲突后再提交
+
+7.master分支上执行 git merge test 
+
+```
+$ git merge test
+CONFLICT (add/add): Merge conflict in readme.md
+Auto-merging readme.md
 Automatic merge failed; fix conflicts and then commit the result.
-   ```
+```
 
-   ![image-20200721143017274](C:\Users\Dell\AppData\Roaming\Typora\typora-user-images\image-20200721143017274.png)
+![image-20200721143017274](C:\Users\Dell\AppData\Roaming\Typora\typora-user-images\image-20200721143017274.png)
 
-    8.选择‘采用传入的更改’，手动更新文档后，再次提交和推送到远程仓库就可以了
-   
-   ​	  git add as.txt
-   
-    	git commit -m "最终的as"
-   
-    	git push origin master
-   
-    9.使用git log --graph查看分支的合并情况
-   
-   10.删除test分支   git branch -d test
-   
-   ## 非Fast forward模式
+ 8.选择‘采用传入的更改’，手动更新文档后，再次提交和推送到远程仓库就可以了
+
+​	  git add as.txt
+
+ 	git commit -m "最终的as"
+
+ 	git push origin master
+
+ 9.使用git log --graph查看分支的合并情况
+
+10.删除test分支   git branch -d test
+
+## 非Fast forward模式
 
 1.git默认情况下使用的是Fast forward模式，Fast forward模式下，删除分支后，会丢掉分支的信息，我们可以使用非Fast forward模式，也就是禁用Fast forward模式，这样Git在每次merge
 
