@@ -12,7 +12,7 @@ master分支   master
 
 新建分支  git checkout -b dev
 
-git branch -r   查看远程分支 -吧
+git branch -r   查看远程分支
 
 git branch       查看本地分支
 
